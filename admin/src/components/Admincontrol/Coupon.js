@@ -8,50 +8,55 @@ import validator from "@brocode/simple-react-form-validation-helper";
 function Coupon() {
   const [error, seterror] = useState(false);
   const [minimumrate, setminimumrate] = useState();
-   const [minimumrateerror, setminimumrateerror] = useState("");
+  const [minimumrateerror, setminimumrateerror] = useState("");
   const [couponcode, setcouponcode] = useState("");
   const [errorcoupon, seterrorcoupon] = useState("");
   const [percentage, setpercentage] = useState();
-   const [percentageerror, setpercentageerror] = useState("");
+  const [percentageerror, setpercentageerror] = useState("");
   const [date, setdate] = useState("");
   const [userdetails, setUserdetails] = useState([]);
   const [coupondetails, setcoupondetails] = useState([]);
-  
 
   console.log(date);
 
   useEffect(() => {
-    axios.get("http://127.0.0.1:8000/cart/couponcheck/").then((Response) => {
-      setUserdetails(Response.data);
-      console.log(Response.data);
-    });
-  }, []);
- 
-  useEffect(() => {
-    axios.get("http://127.0.0.1:8000/newadmin/allcoupon/").then((Response) => {
-      setcoupondetails(Response.data);
-      console.log(Response.data);
-    });
+    axios
+      .get("https://luxeshoppping.adhinabraham.tech/cart/couponcheck/")
+      .then((Response) => {
+        setUserdetails(Response.data);
+        console.log(Response.data);
+      });
   }, []);
 
+  useEffect(() => {
+    axios
+      .get("https://luxeshoppping.adhinabraham.tech/newadmin/allcoupon/")
+      .then((Response) => {
+        setcoupondetails(Response.data);
+        console.log(Response.data);
+      });
+  }, []);
 
   const allcoupon = () => {
-     axios.get("http://127.0.0.1:8000/newadmin/allcoupon/").then((Response) => {
-       setcoupondetails(Response.data);
-       console.log(Response.data);
-     });
-    
-  }
+    axios
+      .get("https://luxeshoppping.adhinabraham.tech/newadmin/allcoupon/")
+      .then((Response) => {
+        setcoupondetails(Response.data);
+        console.log(Response.data);
+      });
+  };
 
   const deletecoupon = (id) => {
-    
-    console.log(id)
-     const data={"id":id}
+    console.log(id);
+    const data = { id: id };
     axios
-      .post("http://127.0.0.1:8000/newadmin/coupondelete/", data)
+      .post(
+        "https://luxeshoppping.adhinabraham.tech/newadmin/coupondelete/",
+        data
+      )
       .then((response) => {
         console.log(response.data);
-        allcoupon()
+        allcoupon();
       })
       .catch((err) => {
         console.log(err.data);
@@ -59,14 +64,12 @@ function Coupon() {
   };
 
   const action = (e) => {
-     if (
-       minimumrate == "" || couponcode == "" || date == ""
-     ) {
-       console.log("this isnull");
-       seterror(true);
-       e.preventDefault();
-       return;
-     }
+    if (minimumrate == "" || couponcode == "" || date == "") {
+      console.log("this isnull");
+      seterror(true);
+      e.preventDefault();
+      return;
+    }
     const data = {
       min_rate: minimumrate,
       coupon_code: couponcode,
@@ -76,7 +79,10 @@ function Coupon() {
     };
     console.log(data);
     axios
-      .post("http://127.0.0.1:8000/newadmin/coupongenerate", data)
+      .post(
+        "https://luxeshoppping.adhinabraham.tech/newadmin/coupongenerate",
+        data
+      )
       .then((Response) => {
         console.log(Response.data);
         console.log("this is then ");
@@ -201,7 +207,10 @@ function Coupon() {
                       }}
                     />
                     {error ? (
-                      <p className="text-red-400 "> please fill the date field </p>
+                      <p className="text-red-400 ">
+                        {" "}
+                        please fill the date field{" "}
+                      </p>
                     ) : (
                       <p></p>
                     )}

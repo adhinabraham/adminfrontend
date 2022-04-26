@@ -19,11 +19,13 @@ function Categoryoffer() {
   const [addcategory, setaddcategory] = useState([]);
 
   useEffect(() => {
-    axios.get("http://127.0.0.1:8000/newadmin/category/").then((Response) => {
-      console.log("this is useEffect");
-      console.log(Response.data);
-      setaddcategory(Response.data);
-    });
+    axios
+      .get("https://luxeshoppping.adhinabraham.tech/newadmin/category/")
+      .then((Response) => {
+        console.log("this is useEffect");
+        console.log(Response.data);
+        setaddcategory(Response.data);
+      });
   }, []);
 
   const notificationsuccess = (message) => {
@@ -38,20 +40,19 @@ function Categoryoffer() {
     });
   };
   const notificationerror = (message) => {
-      toast.error("" + message, {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-    };
-   
+    toast.error("" + message, {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
 
   const form = (e) => {
-    if(categoryname === "" || offername === "") {
+    if (categoryname === "" || offername === "") {
       console.log("this isnull");
       seterror(true);
       e.preventDefault();
@@ -66,7 +67,10 @@ function Categoryoffer() {
     };
     console.log(data);
     axios
-      .post("http://127.0.0.1:8000/product/categoryoffer/", data)
+      .post(
+        "https://luxeshoppping.adhinabraham.tech/product/categoryoffer/",
+        data
+      )
       .then((Response) => {
         console.log(Response.data);
         console.log("offerapplied");
@@ -74,7 +78,7 @@ function Categoryoffer() {
       })
       .catch((error) => {
         console.log("this is error");
-        notificationerror("not valid offer ")
+        notificationerror("not valid offer ");
       });
   };
 
@@ -182,7 +186,8 @@ function Categoryoffer() {
                               validator.addressInputBlurHandler(
                                 e.target.value,
                                 setoffernameerror
-                              ); seterror(false)
+                              );
+                              seterror(false);
                             }}
                           />
                           <span className="text-red-500 fs-6">

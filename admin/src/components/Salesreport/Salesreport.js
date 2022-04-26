@@ -12,8 +12,7 @@ import axios from "axios";
 import { sizeWidth } from "@mui/system";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
-import XLSX from 'xlsx';
-
+import XLSX from "xlsx";
 
 function Salesreport() {
   const [value, setValue] = React.useState([null, null]);
@@ -31,7 +30,7 @@ function Salesreport() {
     console.log("month data");
     const data = { sales: "month" };
     axios
-      .post("http://127.0.0.1:8000/order/salesreport/", data)
+      .post("https://luxeshoppping.adhinabraham.tech/order/salesreport/", data)
       .then((Response) => {
         console.log("this is then");
         console.log(Response.data);
@@ -48,7 +47,7 @@ function Salesreport() {
     console.log("week data");
     const data = { sales: "week" };
     axios
-      .post("http://127.0.0.1:8000/order/salesreport/", data)
+      .post("https://luxeshoppping.adhinabraham.tech/order/salesreport/", data)
       .then((Response) => {
         console.log("this is then");
         console.log(Response.data);
@@ -71,7 +70,7 @@ function Salesreport() {
 
   const orderdata = () => {
     axios
-      .get("http://127.0.0.1:8000/order/orderplaced/")
+      .get("https://luxeshoppping.adhinabraham.tech/order/orderplaced/")
       .then((Response) => {
         console.log("this is then");
         console.log(Response.data);
@@ -131,7 +130,7 @@ function Salesreport() {
   //   const worksheet = XLSX.utils.json_to_sheet(orderlist);
   //   const workbook = XLSX.utils.book_new();
   //   XLSX.utils.book_append_sheet(workbook, worksheet, "orderdetails");
-    
+
   // };
 
   let rows = orderlist;
@@ -218,7 +217,6 @@ function Salesreport() {
           >
             export to pdf
           </button>
-         
         </div>
       </div>
     </div>

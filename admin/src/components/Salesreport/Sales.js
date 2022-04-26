@@ -8,23 +8,29 @@ function Sales() {
   const [q, setq] = useState("");
 
   useEffect(() => {
-    axios.get("http://127.0.0.1:8000/newadmin/userlists/").then((Response) => {
-      setData(Response.data);
-    });
+    axios
+      .get("https://luxeshoppping.adhinabraham.tech/newadmin/userlists/")
+      .then((Response) => {
+        setData(Response.data);
+      });
   }, []);
-    
-    function serach(rows) {
-        return rows.filter(rows=>rows.username.toLowerCase().indexOf(q)>-1)
-    }
+
+  function serach(rows) {
+    return rows.filter((rows) => rows.username.toLowerCase().indexOf(q) > -1);
+  }
   return (
     <div>
-          <div>
-              <input type="text" value={q} onChange={(e)=>{setq(e.target.value)}}></input>
+      <div>
+        <input
+          type="text"
+          value={q}
+          onChange={(e) => {
+            setq(e.target.value);
+          }}
+        ></input>
       </div>
-          <div>
-              <Datatable data={serach(data)}>
-
-              </Datatable>
+      <div>
+        <Datatable data={serach(data)}></Datatable>
       </div>
     </div>
   );

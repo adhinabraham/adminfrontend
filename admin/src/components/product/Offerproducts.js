@@ -1,55 +1,56 @@
-import React from 'react'
-import Navbar from '../adminnavbar/Navbar';
-import Navigation from '../verticalNavigation/Navigation';
+import React from "react";
+import Navbar from "../adminnavbar/Navbar";
+import Navigation from "../verticalNavigation/Navigation";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-
 function Offerproducts() {
-    const [offerproducts, setofferproducts] = useState([]);
-    
-    const orderdata = () => {
-      axios
-        .get("http://127.0.0.1:8000/product/productoffer/")
-        .then((Response) => {
-          console.log("this is then");
-          console.log(Response.data);
-          setofferproducts(Response.data);
-        })
-        .catch((error) => {
-          console.log("this is catch");
-          console.log(console.log(error.data));
-        });
-    };
+  const [offerproducts, setofferproducts] = useState([]);
 
-    const canceloffer = (id) => {
-        console.log(id)
-         const data= {"id":id}
-        axios.post("http://127.0.0.1:8000/product/productoffer/", data).then((Response) => {
-            console.log("offer is cancled")
-            orderdata()
-        })
-        
-   }
+  const orderdata = () => {
+    axios
+      .get("https://luxeshoppping.adhinabraham.tech/product/productoffer/")
+      .then((Response) => {
+        console.log("this is then");
+        console.log(Response.data);
+        setofferproducts(Response.data);
+      })
+      .catch((error) => {
+        console.log("this is catch");
+        console.log(console.log(error.data));
+      });
+  };
 
-    useEffect(() => {
-      orderdata();
-    }, []);
+  const canceloffer = (id) => {
+    console.log(id);
+    const data = { id: id };
+    axios
+      .post(
+        "https://luxeshoppping.adhinabraham.tech/product/productoffer/",
+        data
+      )
+      .then((Response) => {
+        console.log("offer is cancled");
+        orderdata();
+      });
+  };
 
+  useEffect(() => {
+    orderdata();
+  }, []);
 
-
-    return (
-      <>
-        <Navbar></Navbar>
-        <div className="flex">
-          <Navigation></Navigation>
-          <div className="sm:px-6 w-full">
-            <div className="px-4 md:px-10 py-4 md:py-7">
-              <div className="flex items-center justify-between">
-                <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold leading-normal text-gray-800">
-                  Offermanagement
-                </p>
-                {/* <div className="py-3 px-4 flex items-center text-sm font-medium leading-none text-gray-600 bg-gray-200 hover:bg-gray-300 cursor-pointer rounded">
+  return (
+    <>
+      <Navbar></Navbar>
+      <div className="flex">
+        <Navigation></Navigation>
+        <div className="sm:px-6 w-full">
+          <div className="px-4 md:px-10 py-4 md:py-7">
+            <div className="flex items-center justify-between">
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold leading-normal text-gray-800">
+                Offermanagement
+              </p>
+              {/* <div className="py-3 px-4 flex items-center text-sm font-medium leading-none text-gray-600 bg-gray-200 hover:bg-gray-300 cursor-pointer rounded">
                         <p>Sort By:</p>
                         <select className="focus:outline-none bg-transparent ml-1">
                             <option className="text-sm text-indigo-800">Latest</option>
@@ -57,11 +58,11 @@ function Offerproducts() {
                             <option className="text-sm text-indigo-800">Latest</option>
                         </select>
                     </div> */}
-              </div>
             </div>
-            <div className="bg-white py-4 md:py-7 px-4 md:px-8 xl:px-10">
-              <div className="sm:flex items-center justify-between">
-                {/* <div className="flex items-center">
+          </div>
+          <div className="bg-white py-4 md:py-7 px-4 md:px-8 xl:px-10">
+            <div className="sm:flex items-center justify-between">
+              {/* <div className="flex items-center">
                         <a href="javascript:void(0)">
                             <div className="py-2 px-8 bg-indigo-100 text-indigo-700 rounded-full">
                                 <p>All</p>
@@ -78,24 +79,24 @@ function Offerproducts() {
                             </div>
                         </a>
                     </div> */}
-                {/* <button onclick="popuphandler(true)" className="mt-4 sm:mt-0 inline-flex items-start justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded">
+              {/* <button onclick="popuphandler(true)" className="mt-4 sm:mt-0 inline-flex items-start justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded">
                         <p className="text-sm font-medium leading-none text-white">Add Task</p>
                     </button> */}
-              </div>
+            </div>
 
-              {offerproducts.map((obj, index) => {
-                return (
-                  <div className="mt-7 overflow-x-auto">
-                    <table className="w-full whitespace-nowrap">
-                      <tr className="h-16 border border-gray-100 rounded">
-                        <th>
-                          <div className="ml-5">
-                            <div className="bg-gray-200 rounded-sm w-5 h-5 flex flex-shrink-0 justify-center items-center relative">
-                              {/* <input
+            {offerproducts.map((obj, index) => {
+              return (
+                <div className="mt-7 overflow-x-auto">
+                  <table className="w-full whitespace-nowrap">
+                    <tr className="h-16 border border-gray-100 rounded">
+                      <th>
+                        <div className="ml-5">
+                          <div className="bg-gray-200 rounded-sm w-5 h-5 flex flex-shrink-0 justify-center items-center relative">
+                            {/* <input
                           type="checkbox"
                           className="checkbox opacity-0 absolute cursor-pointer w-full h-full"
                         /> */}
-                              {/* <div className="check-icon  bg-indigo-700 text-white rounded-sm">
+                            {/* <div className="check-icon  bg-indigo-700 text-white rounded-sm">
                           <svg
                             className="icon icon-tabler icon-tabler-check"
                             xmlns="http://www.w3.org/2000/svg"
@@ -112,15 +113,15 @@ function Offerproducts() {
                             <path d="M5 12l5 5l10 -10" />
                           </svg>
                         </div> */}
-                            </div>
                           </div>
-                        </th>
-                        <td className>
-                          <div className="flex items-center pl-5">
-                            <p className="text-base font-medium leading-none text-gray-700 mr-2">
-                              {obj.offer_name}
-                            </p>
-                            {/* <svg
+                        </div>
+                      </th>
+                      <td className>
+                        <div className="flex items-center pl-5">
+                          <p className="text-base font-medium leading-none text-gray-700 mr-2">
+                            {obj.offer_name}
+                          </p>
+                          {/* <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width={16}
                         height={16}
@@ -140,11 +141,11 @@ function Offerproducts() {
                           strokeLinejoin="round"
                         />
                       </svg> */}
-                          </div>
-                        </td>
-                        <td className="pl-24"></td>
-                        <td className="pl-5">
-                          {/* <div className="flex items-center">
+                        </div>
+                      </td>
+                      <td className="pl-24"></td>
+                      <td className="pl-5">
+                        {/* <div className="flex items-center">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width={20}
@@ -199,10 +200,10 @@ function Offerproducts() {
                         userid
                       </p>
                     </div> */}
-                        </td>
-                        <td className="pl-5">
-                          <div className="flex items-center">
-                            {/* <svg
+                      </td>
+                      <td className="pl-5">
+                        <div className="flex items-center">
+                          {/* <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width={60}
                         height={60}
@@ -238,34 +239,34 @@ function Offerproducts() {
                           strokeLinejoin="round"
                         />
                       </svg> */}
-                            <p className="text-sm leading-none text-gray-600 ml-2">
-                              {obj.productname}
-                            </p>
-                          </div>
-                        </td>
-                        <td className="pl-5">
-                          <div className="flex items-center">
-                            <p className="text-sm leading-none text-gray-600 ml-2">
-                              offerprice -Rs {obj.price}
-                            </p>
-                          </div>
-                        </td>
-                        <td className="pl-5">
-                          <div className="flex items-center">
-                            <p className="text-sm leading-none text-red-400 ml-2">
-                              actualprice -Rs {obj.price2}
-                            </p>
-                          </div>
-                        </td>
-                        <td className="pl-5">
-                          <div className="flex items-center">
-                            <p className="text-sm leading-none text-gray-600 ml-2">
-                              {obj.date}
-                            </p>
-                          </div>
-                        </td>
+                          <p className="text-sm leading-none text-gray-600 ml-2">
+                            {obj.productname}
+                          </p>
+                        </div>
+                      </td>
+                      <td className="pl-5">
+                        <div className="flex items-center">
+                          <p className="text-sm leading-none text-gray-600 ml-2">
+                            offerprice -Rs {obj.price}
+                          </p>
+                        </div>
+                      </td>
+                      <td className="pl-5">
+                        <div className="flex items-center">
+                          <p className="text-sm leading-none text-red-400 ml-2">
+                            actualprice -Rs {obj.price2}
+                          </p>
+                        </div>
+                      </td>
+                      <td className="pl-5">
+                        <div className="flex items-center">
+                          <p className="text-sm leading-none text-gray-600 ml-2">
+                            {obj.date}
+                          </p>
+                        </div>
+                      </td>
 
-                        {/* <td className="pl-4 bg-slate-50">
+                      {/* <td className="pl-4 bg-slate-50">
                           <select
                             name="status"
                             id="status"
@@ -286,30 +287,33 @@ function Offerproducts() {
                             <option value="Develiverd">Delivered</option>
                           </select>
                         </td> */}
-                        <td>
-                          <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
-                                        <button className=" bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-                                        onClick={()=>{canceloffer(obj.id)}}
-                                        >
-                             cancel offer
-                            </button>
-                          </td>
+                      <td>
+                        <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
+                          <button
+                            className=" bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                            onClick={() => {
+                              canceloffer(obj.id);
+                            }}
+                          >
+                            cancel offer
+                          </button>
                         </td>
-                      </tr>
-                    </table>
-                  </div>
-                );
-              })}
-            </div>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              );
+            })}
           </div>
-          <style>
-            {` .checkbox:checked + .check-icon {
+        </div>
+        <style>
+          {` .checkbox:checked + .check-icon {
         display: flex;
     }`}
-          </style>
-        </div>
-      </>
-    );
+        </style>
+      </div>
+    </>
+  );
 }
 
-export default Offerproducts
+export default Offerproducts;

@@ -2,56 +2,48 @@ import React from "react";
 import Navbar from "../adminnavbar/Navbar";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import swal from 'sweetalert';
+import swal from "sweetalert";
 
 import Navigation from "../verticalNavigation/Navigation";
 
-
 function Userlist() {
   const [userdetails, setUserdetails] = useState([]);
-  const [Active,setActive]=useState()
+  const [Active, setActive] = useState();
 
   useEffect(() => {
-    axios.get("http://127.0.0.1:8000/newadmin/userlists/").then((Response) => {
-     
-      setUserdetails(Response.data);
-    });
+    axios
+      .get("https://luxeshoppping.adhinabraham.tech/newadmin/userlists/")
+      .then((Response) => {
+        setUserdetails(Response.data);
+      });
   }, [Active]);
 
+  const userdelete = (id) => {
+    if (window.confirm("Are You Sure")) {
+      axios
+        .get(`https://luxeshoppping.adhinabraham.tech/newadmin/useredit/${id}`)
+        .then((Response) => {
+          setActive(Response.data);
+          console.log(Active);
 
-  const userdelete=(id)=>{
-
-    if(window.confirm("Are You Sure")){
-
-      
-      
-      axios.get(`http://127.0.0.1:8000/newadmin/useredit/${id}`).then((Response)=>{
-        
-        setActive(Response.data)
-        console.log(Active)
-        
-        
-        console.log("this is then")
-      }).catch((error)=>{
-        console.log("this is flase ")
-      })
-      
+          console.log("this is then");
+        })
+        .catch((error) => {
+          console.log("this is flase ");
+        });
     }
-  
-}
+  };
 
   return (
     <div>
-       <Navbar/>
+      <Navbar />
       <div className="flex">
-        <Navigation className="h-screen" ></Navigation>
-     
-     
+        <Navigation className="h-screen"></Navigation>
 
-      <div className=" pt-3 py-20 w-5/6">
-        <div className="mx-auto container bg-white dark:bg-gray-800 shadow rounded">
-          <div className="flex flex-col lg:flex-row p-4 lg:p-8 justify-between items-start lg:items-stretch w-full">
-            {/* <div className="w-full lg:w-1/3 flex flex-col lg:flex-row items-start lg:items-center">
+        <div className=" pt-3 py-20 w-5/6">
+          <div className="mx-auto container bg-white dark:bg-gray-800 shadow rounded">
+            <div className="flex flex-col lg:flex-row p-4 lg:p-8 justify-between items-start lg:items-stretch w-full">
+              {/* <div className="w-full lg:w-1/3 flex flex-col lg:flex-row items-start lg:items-center">
                         <div className="flex items-center">
                             <a className="text-gray-600 dark:text-gray-400 p-2 border-transparent border bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 hover:bg-gray-200 cursor-pointer rounded focus:outline-none focus:border-gray-800 focus:shadow-outline-gray" href="javascript: void(0)">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="icon cursor-pointer icon-tabler icon-tabler-edit" width={20} height={20} viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
@@ -93,7 +85,7 @@ function Userlist() {
                             </a>
                         </div>
                     </div> */}
-            {/* <div className="w-full lg:w-2/3 flex flex-col lg:flex-row items-start lg:items-center justify-end">
+              {/* <div className="w-full lg:w-2/3 flex flex-col lg:flex-row items-start lg:items-center justify-end">
                         <div className="flex items-center lg:border-l lg:border-r border-gray-300 dark:border-gray-200 py-3 lg:py-0 lg:px-6">
                             <p className="text-base text-gray-600 dark:text-gray-400" id="page-view">
                                 Viewing 1 - 20 of 60
@@ -114,121 +106,124 @@ function Userlist() {
                         
                         
                     </div> */}
-          </div>
-          <div className="w-full overflow-x-scroll xl:overflow-x-hidden">
-            <table className="min-w-full bg-white dark:bg-gray-800">
-              <thead>
-                <tr className="w-full h-16 border-gray-300 dark:border-gray-200 border-b py-8">
-                  <th className="pl-8 text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
-                    <input
-                      type="checkbox"
-                      className="cursor-pointer relative w-5 h-5 border rounded border-gray-400 dark:border-gray-200 bg-white dark:bg-gray-800 outline-none"
-                      onclick="checkAll(this)"
-                    />
-                  </th>
-                  <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
-                    <div className="text-gray-600 dark:text-gray-400 opacity-0 cursor-default relative w-10">
-                      <div className="absolute top-0 right-0 w-5 h-5 mr-2 -mt-1 rounded-full bg-indigo-700 text-white flex justify-center items-center text-xs">
-                        3
+            </div>
+            <div className="w-full overflow-x-scroll xl:overflow-x-hidden">
+              <table className="min-w-full bg-white dark:bg-gray-800">
+                <thead>
+                  <tr className="w-full h-16 border-gray-300 dark:border-gray-200 border-b py-8">
+                    <th className="pl-8 text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
+                      <input
+                        type="checkbox"
+                        className="cursor-pointer relative w-5 h-5 border rounded border-gray-400 dark:border-gray-200 bg-white dark:bg-gray-800 outline-none"
+                        onclick="checkAll(this)"
+                      />
+                    </th>
+                    <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
+                      <div className="text-gray-600 dark:text-gray-400 opacity-0 cursor-default relative w-10">
+                        <div className="absolute top-0 right-0 w-5 h-5 mr-2 -mt-1 rounded-full bg-indigo-700 text-white flex justify-center items-center text-xs">
+                          3
+                        </div>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="icon icon-tabler icon-tabler-file"
+                          width={28}
+                          height={28}
+                          viewBox="0 0 24 24"
+                          strokeWidth="1.5"
+                          stroke="currentColor"
+                          fill="none"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path stroke="none" d="M0 0h24v24H0z" />
+                          <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                          <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
+                        </svg>
                       </div>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="icon icon-tabler icon-tabler-file"
-                        width={28}
-                        height={28}
-                        viewBox="0 0 24 24"
-                        strokeWidth="1.5"
-                        stroke="currentColor"
-                        fill="none"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path stroke="none" d="M0 0h24v24H0z" />
-                        <path d="M14 3v4a1 1 0 0 0 1 1h4" />
-                        <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
-                      </svg>
-                    </div>
-                  </th>
-                  <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
-                    Serial Number
-                  </th>
-                  <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
-                    Username
-                  </th>
-                  <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
-                    Email
-                  </th>
-                  <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
-                    Phone number
-                  </th>
-                  <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
-                    Is Active
-                  </th>
-                  <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
-            
-                  </th>
-                  <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
-                    <div className="opacity-0 w-2 h-2 rounded-full bg-indigo-400" />
-                  </th>
-                  {/* <td className="text-gray-600 dark:text-gray-400 font-normal pr-8 text-left text-sm tracking-normal leading-4">More</td> */}
-                </tr>
-              </thead>
-              <tbody>
-                {userdetails.map((obj, index) => {
-                  return (
-                    <tr className="h-24 border-gray-300 dark:border-gray-200 border-b">
-                      <td className="pl-8 pr-6 text-left whitespace-no-wrap text-sm text-gray-800 dark:text-gray-100 tracking-normal leading-4">
-                        <input
-                          type="checkbox"
-                          className="cursor-pointer relative w-5 h-5 border rounded border-gray-400 dark:border-gray-200 bg-white dark:bg-gray-800 outline-none"
-                          onclick="tableInteract(this)"
-                        />
-                      </td>
-                      <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
-                        <div className="relative w-10">
-                          <div className="text-gray-600 dark:text-gray-400"></div>
-                        </div>
-                      </td>
-                      <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
-                        {index + 1}
-                      </td>
-                      <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
-                        {obj.username}
-                      </td>
-                      <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
-                        {obj.email}
-                      </td>
-                      <td className="pr-6 whitespace-no-wrap">
-                        <div className="flex items-center">
-                          <p className="ml-2 text-gray-800 dark:text-gray-100 tracking-normal leading-4 text-sm">
-                            {obj.mobile_number}
-                          </p>
-                        </div>
-                      </td>
-                      <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
-                        <p className="bg-transparent  font-semibold " >
-                          {obj.is_active ? "Active" : "Not Active"}
-                        </p>
-                      </td>
-
-                      {obj.is_superuser ? (
-                        <td></td>
-                      ) : (
-                        <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
-                          <button className=" bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onClick={()=>{userdelete(obj.id)}} >
-                            {obj.is_active?"Block":"UnBlock"}
-                          </button>
+                    </th>
+                    <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
+                      Serial Number
+                    </th>
+                    <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
+                      Username
+                    </th>
+                    <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
+                      Email
+                    </th>
+                    <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
+                      Phone number
+                    </th>
+                    <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
+                      Is Active
+                    </th>
+                    <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4"></th>
+                    <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
+                      <div className="opacity-0 w-2 h-2 rounded-full bg-indigo-400" />
+                    </th>
+                    {/* <td className="text-gray-600 dark:text-gray-400 font-normal pr-8 text-left text-sm tracking-normal leading-4">More</td> */}
+                  </tr>
+                </thead>
+                <tbody>
+                  {userdetails.map((obj, index) => {
+                    return (
+                      <tr className="h-24 border-gray-300 dark:border-gray-200 border-b">
+                        <td className="pl-8 pr-6 text-left whitespace-no-wrap text-sm text-gray-800 dark:text-gray-100 tracking-normal leading-4">
+                          <input
+                            type="checkbox"
+                            className="cursor-pointer relative w-5 h-5 border rounded border-gray-400 dark:border-gray-200 bg-white dark:bg-gray-800 outline-none"
+                            onclick="tableInteract(this)"
+                          />
                         </td>
-                      )}
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+                        <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
+                          <div className="relative w-10">
+                            <div className="text-gray-600 dark:text-gray-400"></div>
+                          </div>
+                        </td>
+                        <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
+                          {index + 1}
+                        </td>
+                        <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
+                          {obj.username}
+                        </td>
+                        <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
+                          {obj.email}
+                        </td>
+                        <td className="pr-6 whitespace-no-wrap">
+                          <div className="flex items-center">
+                            <p className="ml-2 text-gray-800 dark:text-gray-100 tracking-normal leading-4 text-sm">
+                              {obj.mobile_number}
+                            </p>
+                          </div>
+                        </td>
+                        <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
+                          <p className="bg-transparent  font-semibold ">
+                            {obj.is_active ? "Active" : "Not Active"}
+                          </p>
+                        </td>
+
+                        {obj.is_superuser ? (
+                          <td></td>
+                        ) : (
+                          <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
+                            <button
+                              className=" bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                              onClick={() => {
+                                userdelete(obj.id);
+                              }}
+                            >
+                              {obj.is_active ? "Block" : "UnBlock"}
+                            </button>
+                          </td>
+                        )}
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
-    </div>
     </div>
   );
 }

@@ -9,7 +9,6 @@ import { Doughnut } from "react-chartjs-2";
 // import { Chart as ChartJS, defaults } from "react-chartjs-2";
 // import { Chart } from "react-chartjs-2";
 
-
 function Dashbordgraph() {
   const [data, setdata] = useState();
   const [orderlist, setorderlist] = useState([]);
@@ -17,7 +16,7 @@ function Dashbordgraph() {
   const orderdata = async () => {
     try {
       const { data: Response } = await axios.get(
-        "http://127.0.0.1:8000/order/orderplaced/"
+        "https://luxeshoppping.adhinabraham.tech/order/orderplaced/"
       );
       console.log("this is then");
       console.log(Response.data);
@@ -30,10 +29,12 @@ function Dashbordgraph() {
 
   useEffect(() => {
     orderdata();
-    axios.get("http://127.0.0.1:8000/user/dashboard").then((Response) => {
-      setdata(Response.data.user);
-      console.log(Response.data.user);
-    });
+    axios
+      .get("https://luxeshoppping.adhinabraham.tech/user/dashboard")
+      .then((Response) => {
+        setdata(Response.data.user);
+        console.log(Response.data.user);
+      });
   }, []);
 
   useEffect(() => {

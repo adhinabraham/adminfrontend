@@ -1,83 +1,88 @@
-import React from 'react'
+import React from "react";
 import Navigation from "../verticalNavigation/Navigation";
 import Navbar from "../adminnavbar/Navbar";
 import axios from "axios";
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import validator from "@brocode/simple-react-form-validation-helper";
 
 function Productoffer() {
   const [productname, setproductname] = useState("");
-   const [productnameerror, setproductnameerror] = useState("");
+  const [productnameerror, setproductnameerror] = useState("");
   const [price, setprice] = useState(0);
   const [priceerror, setpriceerror] = useState("");
 
   const [offername, setoffername] = useState("");
   const [offernameerror, setoffernameerror] = useState("");
-  const [error,seterror]=useState(false)
-  const [productlist, setproductlist] = useState([])
-  
+  const [error, seterror] = useState(false);
+  const [productlist, setproductlist] = useState([]);
 
-   const notificationsuccess = (message) => {
-     toast.success("" + message, {
-       position: "top-center",
-       autoClose: 3000,
-       hideProgressBar: true,
-       closeOnClick: true,
-       pauseOnHover: true,
-       draggable: true,
-       progress: undefined,
-     });
-   };
+  const notificationsuccess = (message) => {
+    toast.success("" + message, {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
 
-   const notificationerror = (message) => {
-     toast.error("" + message, {
-       position: "top-center",
-       autoClose: 3000,
-       hideProgressBar: true,
-       closeOnClick: true,
-       pauseOnHover: true,
-       draggable: true,
-       progress: undefined,
-     });
-   };
-    
+  const notificationerror = (message) => {
+    toast.error("" + message, {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
+
   const form = (e) => {
-      if (productname === "" || price == "" || offername=="") {
-        console.log("this isnull");
-        seterror(true);
-        e.preventDefault();
-        return;
-      }
+    if (productname === "" || price == "" || offername == "") {
+      console.log("this isnull");
+      seterror(true);
+      e.preventDefault();
+      return;
+    }
     console.log("what is done here");
     console.log(productname, price, offername);
-    const data = { "productname": productname, "discountpercentage": price, "offername": offername };
-    console.log(data)
-    axios.patch("http://127.0.0.1:8000/product/productoffer/", data).then((Response) => {
-      console.log(Response.data)
-      console.log("offerapplied")
-      notificationsuccess(Response.data)
-
-    }).catch((error) => {
-      console.log("this is error")
-      notificationerror("not valid offer")
-    })
+    const data = {
+      productname: productname,
+      discountpercentage: price,
+      offername: offername,
+    };
+    console.log(data);
+    axios
+      .patch(
+        "https://luxeshoppping.adhinabraham.tech/product/productoffer/",
+        data
+      )
+      .then((Response) => {
+        console.log(Response.data);
+        console.log("offerapplied");
+        notificationsuccess(Response.data);
+      })
+      .catch((error) => {
+        console.log("this is error");
+        notificationerror("not valid offer");
+      });
   };
-  
+
   const productnamelist = () => {
-    axios.get("http://127.0.0.1:8000/product/productlist/").
-      then((Response) => {
-      setproductlist(Response.data)
-    })
-    
-  }
+    axios
+      .get("https://luxeshoppping.adhinabraham.tech/product/productlist/")
+      .then((Response) => {
+        setproductlist(Response.data);
+      });
+  };
   useEffect(() => {
-    productnamelist()
-   
-  }, [])
-  
-   
+    productnamelist();
+  }, []);
 
   return (
     <>
@@ -137,7 +142,8 @@ function Productoffer() {
                           validator.priceInputBlurHandler(
                             e.target.value,
                             setpriceerror
-                          );seterror(false)
+                          );
+                          seterror(false);
                         }}
                       ></input>
                       <span className="text-red-500 fs-6">{priceerror}</span>
@@ -179,11 +185,14 @@ function Productoffer() {
                           validator.nameInputBlurHandler(
                             e.target.value,
                             setoffernameerror
-                          );seterror(false)
+                          );
+                          seterror(false);
                         }}
                       />
-                     
-                      <span className="text-red-500 fs-6">{offernameerror}</span>
+
+                      <span className="text-red-500 fs-6">
+                        {offernameerror}
+                      </span>
                     </div>
                     <div className="flex items-center justify-start w-full">
                       <button
@@ -211,4 +220,4 @@ function Productoffer() {
   );
 }
 
-export default Productoffer
+export default Productoffer;

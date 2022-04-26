@@ -9,10 +9,9 @@ function Ordermanagement() {
   const [orderlist, setorderlist] = useState([]);
   const [value, setvalue] = useState();
 
-
   const orderdata = () => {
     axios
-      .get("http://127.0.0.1:8000/order/orderplaced/")
+      .get("https://luxeshoppping.adhinabraham.tech/order/orderplaced/")
       .then((Response) => {
         console.log("this is then");
         console.log(Response.data);
@@ -28,26 +27,24 @@ function Ordermanagement() {
     orderdata();
   }, []);
 
-  const orderstatuschanged=(productid,id,value)=> {
+  const orderstatuschanged = (productid, id, value) => {
     // setvalue(value);
-    console.log(value)
-    console.log(id)
-    console.log(productid)
-    const data = { "status": value, "orderid": id ,"productid":productid};
-     axios
-       .patch("http://127.0.0.1:8000/order/orderplaced/",data)
-       .then((Response) => {
-         console.log("this is then");
-         console.log(Response.data);
-         orderdata()
-        
-       })
-       .catch((error) => {
-         console.log("this is catch");
-         console.log(console.log(error.data));
-       });
-    
-  }
+    console.log(value);
+    console.log(id);
+    console.log(productid);
+    const data = { status: value, orderid: id, productid: productid };
+    axios
+      .patch("https://luxeshoppping.adhinabraham.tech/order/orderplaced/", data)
+      .then((Response) => {
+        console.log("this is then");
+        console.log(Response.data);
+        orderdata();
+      })
+      .catch((error) => {
+        console.log("this is catch");
+        console.log(console.log(error.data));
+      });
+  };
 
   return (
     <>
@@ -306,10 +303,7 @@ function Ordermanagement() {
                       </td>
                       <td>
                         <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
-                          <button
-                            className=" bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-                           
-                          >
+                          <button className=" bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
                             {obj.status}
                           </button>
                         </td>

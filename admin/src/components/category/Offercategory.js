@@ -1,41 +1,42 @@
-import React from 'react'
+import React from "react";
 import Navbar from "../adminnavbar/Navbar";
 import Navigation from "../verticalNavigation/Navigation";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
 function Offercategory() {
-    const [offercategory, setoffercategory] = useState([]);
-    
+  const [offercategory, setoffercategory] = useState([]);
 
-     const orderdata = () => {
-       axios
-         .get("http://127.0.0.1:8000/product/categoryoffer/")
-         .then((Response) => {
-           console.log("this is then");
-           console.log(Response.data);
-           setoffercategory(Response.data);
-         })
-         .catch((error) => {
-           console.log("this is catch");
-           console.log(console.log(error.data));
-         });
-     };
-    useEffect(() => {
-      orderdata()
-    }, [])
-    
+  const orderdata = () => {
+    axios
+      .get("https://luxeshoppping.adhinabraham.tech/product/categoryoffer/")
+      .then((Response) => {
+        console.log("this is then");
+        console.log(Response.data);
+        setoffercategory(Response.data);
+      })
+      .catch((error) => {
+        console.log("this is catch");
+        console.log(console.log(error.data));
+      });
+  };
+  useEffect(() => {
+    orderdata();
+  }, []);
 
-    const canceloffer = (id) => {
-      console.log(id);
-      const data = { id: id };
-      axios
-        .patch("http://127.0.0.1:8000/product/categoryoffer/", data)
-        .then((Response) => {
-          console.log("offer is cancled");
-          orderdata();
-        });
-    };
+  const canceloffer = (id) => {
+    console.log(id);
+    const data = { id: id };
+    axios
+      .patch(
+        "https://luxeshoppping.adhinabraham.tech/product/categoryoffer/",
+        data
+      )
+      .then((Response) => {
+        console.log("offer is cancled");
+        orderdata();
+      });
+  };
   return (
     <div>
       <>
@@ -139,4 +140,4 @@ function Offercategory() {
   );
 }
 
-export default Offercategory
+export default Offercategory;

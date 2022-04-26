@@ -1,10 +1,9 @@
-
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import Navbar from "../adminnavbar/Navbar";
 import Navigation from "../verticalNavigation/Navigation";
 import axios from "axios";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Chart,
   ChartSeries,
@@ -18,53 +17,51 @@ import "hammerjs";
 import "@progress/kendo-theme-default/dist/all.css";
 
 function Dashboardtwo() {
-     const [data, setdata] = useState();
-    const [orderprice, setorderprice] = useState(0);
-    const [count, setordercount] = useState();
-    const [lastorder, setlastorder] = useState([])
-    
+  const [data, setdata] = useState();
+  const [orderprice, setorderprice] = useState(0);
+  const [count, setordercount] = useState();
+  const [lastorder, setlastorder] = useState([]);
 
-    const orderdata = () => {
-        axios.get("http://127.0.0.1:8000/order/ordersum/").then((Response) => {
-            setorderprice(Response.data.price)
-            console.log(Response.data.price ,"total pirce " )
-        })
-        
-       
-    };
-
-    const lastfivedata = () => {
-      axios.get("http://127.0.0.1:8000/order/lastorder/").then((Response) => {
-          setlastorder(Response.data);
-          console.log(Response .data)
-        
+  const orderdata = () => {
+    axios
+      .get("https://luxeshoppping.adhinabraham.tech/order/ordersum/")
+      .then((Response) => {
+        setorderprice(Response.data.price);
+        console.log(Response.data.price, "total pirce ");
       });
-    };
+  };
 
-    const ordercount = () => {
-      axios.get("http://127.0.0.1:8000/order/nooforder/").then((Response) => {
+  const lastfivedata = () => {
+    axios
+      .get("https://luxeshoppping.adhinabraham.tech/order/lastorder/")
+      .then((Response) => {
+        setlastorder(Response.data);
+        console.log(Response.data);
+      });
+  };
+
+  const ordercount = () => {
+    axios
+      .get("https://luxeshoppping.adhinabraham.tech/order/nooforder/")
+      .then((Response) => {
         setordercount(Response.data.count);
-       
       });
-    };
+  };
 
+  const revenue = orderprice - (orderprice * 40) / 100;
 
+  useEffect(() => {
+    orderdata();
+    ordercount();
+    lastfivedata();
+    axios
+      .get("https://luxeshoppping.adhinabraham.tech/user/dashboard")
+      .then((Response) => {
+        setdata(Response.data.user);
+        console.log(Response.data.user);
+      });
+  }, []);
 
-    const revenue=orderprice-(orderprice*40/100)
-    
-    
-        
-     useEffect(() => {
-       orderdata();
-         ordercount()
-         lastfivedata()
-       axios.get("http://127.0.0.1:8000/user/dashboard").then((Response) => {
-         setdata(Response.data.user);
-         console.log(Response.data.user);
-       });
-     }, []);
-
-    
   const datam = [0, 1, 1, 2, 4, count];
   const ChartContainer = () => (
     <Chart className="bg-slate-700">
@@ -73,34 +70,32 @@ function Dashboardtwo() {
       </ChartSeries>
     </Chart>
   );
-    
-    
-    const categories = ["jan", "feb", "march", "april"];
-const seriesData = [0, 0, 0, 0, 0,data];
-const valueAxisLabels = {
-  padding: 3,
-  font: "bold 16px Arial, sans-serif",
-};
 
-const Chartgraph = () => (
-  <Chart>
-    <ChartCategoryAxis>
-      <ChartCategoryAxisItem
-        categories={categories}
-        labels={{
-          color: "#0a0",
-        }}
-      />
-    </ChartCategoryAxis>
-    <ChartValueAxis>
-      <ChartValueAxisItem labels={valueAxisLabels} />
-    </ChartValueAxis>
-    <ChartSeries>
-      <ChartSeriesItem type="line" data={seriesData} />
-    </ChartSeries>
-  </Chart>)
-    
-    
+  const categories = ["jan", "feb", "march", "april"];
+  const seriesData = [0, 0, 0, 0, 0, data];
+  const valueAxisLabels = {
+    padding: 3,
+    font: "bold 16px Arial, sans-serif",
+  };
+
+  const Chartgraph = () => (
+    <Chart>
+      <ChartCategoryAxis>
+        <ChartCategoryAxisItem
+          categories={categories}
+          labels={{
+            color: "#0a0",
+          }}
+        />
+      </ChartCategoryAxis>
+      <ChartValueAxis>
+        <ChartValueAxisItem labels={valueAxisLabels} />
+      </ChartValueAxis>
+      <ChartSeries>
+        <ChartSeriesItem type="line" data={seriesData} />
+      </ChartSeries>
+    </Chart>
+  );
 
   return (
     <div>
@@ -220,7 +215,9 @@ const Chartgraph = () => (
         </div>
         <h5 className=" ml-[18rem]  text-2xl text-red-900">SALES GRAPH</h5>
         <div className="ml-[18rem] mt-7">{ChartContainer()}</div>
-        <h5 className=" ml-[18rem] mt-8 text-2xl text-red-900">LATEST ORDER PRODUCTS</h5>
+        <h5 className=" ml-[18rem] mt-8 text-2xl text-red-900">
+          LATEST ORDER PRODUCTS
+        </h5>
         <div className="w-full ml-[18rem] mt-5 overflow-x-scroll xl:overflow-x-hidden">
           <table className="min-w-full bg-white dark:bg-gray-800">
             <thead>
@@ -280,4 +277,4 @@ const Chartgraph = () => (
   );
 }
 
-export default Dashboardtwo
+export default Dashboardtwo;
